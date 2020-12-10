@@ -5,7 +5,7 @@ Services Provided
 
 * [OpenSSH](https://www.openssh.com/)
   * Windows and Android SSH tunnels are also supported, and a copy of the keypair is exported in the `.ppk` format that PuTTY requires.
-  * [Tinyproxy](https://banu.com/tinyproxy/) can be installed and bound to localhost. It can be accessed over an SSH tunnel by programs that do not natively support SOCKS and that require an HTTP proxy, such as Twitter for Android.
+  * [Tinyproxy](https://tinyproxy.github.io/) can be installed and bound to localhost. It can be accessed over an SSH tunnel by programs that do not natively support SOCKS and that require an HTTP proxy, such as Twitter for Android.
   * An unprivileged forwarding user and SSH keypair can be generated for [sshuttle](https://github.com/sshuttle/sshuttle) and SOCKS capabilities.
 * [OpenConnect](https://ocserv.gitlab.io/www/index.html) / [Cisco AnyConnect](https://www.cisco.com/c/en/us/products/security/anyconnect-secure-mobility-client/index.html)
   * OpenConnect (ocserv) is an extremely high-performance and lightweight VPN server that also features full compatibility with the official Cisco AnyConnect clients.
@@ -36,6 +36,6 @@ Services Provided
 * [unattended-upgrades](https://help.ubuntu.com/community/AutomaticSecurityUpdates)
   * Your Streisand server is configured to automatically install new security updates.
 * [WireGuard](https://www.wireguard.com/)
-  * Linux users can take advantage of this next-gen, simple, kernel-based, state-of-the-art VPN that also happens to be ridiculously fast and uses modern cryptographic principles that all other highspeed VPN solutions lack.
+  * Users can take advantage of this next-gen, simple, kernel-based or user-space-based, state-of-the-art VPN that also happens to be ridiculously fast and uses modern cryptographic principles that all other highspeed VPN solutions lack. It is noticeably more performant and enery-saving, and is highly advantageous in roaming network-to-network environments, like mobile phones. A connection can be made as simply as scanning a QR code, which makes it perfect for sharing with friends and family members. It currently offers an official client for macOS, iOS, Android, Windows, a variety of Linux distibutions, OpenBSD and FreeBSD.
 * [Cloudflared DNS-over-HTTPS](https://developers.cloudflare.com/1.1.1.1/dns-over-https/)
   * Even when you are visiting a site using HTTPS, by default your DNS query is sent over an unencrypted connection (between the Streisand server and upstream DNS servers). With Streisand's DNS-over-HTTPS service provided by the cloudflared client enabled, your DNS queries are blocked from view by the cloud provider hosting your Streisand server and everyone in between them and the upstream DNS server. The DNS reply from the upstream server is also protected from both view and tampering on its way back to your Streisand server.
