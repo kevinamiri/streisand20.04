@@ -1,15 +1,19 @@
 ---
-- name: Add OpenVPN repo GPG key
+- name: "Add the official OpenVPN APT key; hiding 25 lines of log..."
   apt_key:
-    id: E158C569
-    url: https://swupdate.openvpn.net/repos/repo-public.gpg
-  when: openvpn_use_external_repo | bool
+    id: 30EBF4E73CCE63EEE124DD278E6DA8B4E158C569
+    data: "{{ item }}"
+  with_file: openvpn_signing.key
+  no_log: True
 
-- name: Add OpenVPN repo sources
+- name: Add the official OpenVPN repository
   apt_repository:
-    filename: openvpn
-    repo: deb http://swupdate.openvpn.net/apt "{{ ansible_lsb.codename }}" main
-  when: openvpn_use_external_repo | bool
+    repo: "deb https://build.openvpn.net/debian/openvpn/stable {{ ansible_lsb.codename }} main"
+    state: present
+  register: openvpn_add_apt_repository
+  until: not openvpn_add_apt_repository.failed
+  retries: "{{ apt_repository_retries }}"
+  delay: "{{ apt_repository_delay }}"
 
 - name: Install OpenVPN and its dependencies from APT
   apt:
