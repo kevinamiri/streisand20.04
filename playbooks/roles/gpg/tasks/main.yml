@@ -47,37 +47,36 @@
   become_user: root
   become: true
   command: "gpgconf --reload gpg-agent"
-
 # It turns out that "--reload" doesn't work on dirmngr.
-- name: "Kill any existing dirmngr"
-  command: "gpgconf --kill dirmngr"
-- name: "Start a new dirmngr with our config changes"
-  command: "gpgconf --launch dirmngr"
+# - name: "Kill any existing dirmngr"
+#   command: "gpgconf --kill dirmngr"
+# - name: "Start a new dirmngr with our config changes"
+#   command: "gpgconf --launch dirmngr"
 
-- name: "Wait for the GPG agent and dirmngr control sockets"
-  wait_for:
-    path: "{{ root_gpg_dir }}/{{ item }}"
-    state: present
-    sleep: 5
-    timeout: 60
-  with_items:
-    - "S.dirmngr"
-    - "S.gpg-agent"
+# - name: "Wait for the GPG agent and dirmngr control sockets"
+#   wait_for:
+#     path: "{{ root_gpg_dir }}/{{ item }}"
+#     state: present
+#     sleep: 5
+#     timeout: 60
+#   with_items:
+#     - "S.dirmngr"
+#     - "S.gpg-agent"
 
-- name: "Create the Streisand GPG keyring"
-  command: "gpg2 {{ streisand_default_gpg_flags }} --fingerprint"
-  args:
-    creates: "{{ streisand_gpg_keyring }}"
+# - name: "Create the Streisand GPG keyring"
+#   command: "gpg2 {{ streisand_default_gpg_flags }} --fingerprint"
+#   args:
+#     creates: "{{ streisand_gpg_keyring }}"
 
-- name: "Copy the bootstrap GPG public keys to the Streisand instance"
-  copy:
-    src: "{{ item }}"
-    dest: "{{ streisand_gpg_dir }}/keys/{{ item }}"
-  with_items: "{{ streisand_bootstrap_gpg_keys }}"
+# - name: "Copy the bootstrap GPG public keys to the Streisand instance"
+#   copy:
+#     src: "{{ item }}"
+#     dest: "{{ streisand_gpg_dir }}/keys/{{ item }}"
+#   with_items: "{{ streisand_bootstrap_gpg_keys }}"
 
-- name: "Import the bootstrap GPG public keys to the Streisand GPG keyring"
-  command: "gpg2 {{ streisand_default_gpg_flags }} --import {{ streisand_gpg_dir }}/keys/{{ item }}"
-  with_items: "{{ streisand_bootstrap_gpg_keys }}"
+# - name: "Import the bootstrap GPG public keys to the Streisand GPG keyring"
+#   command: "gpg2 {{ streisand_default_gpg_flags }} --import {{ streisand_gpg_dir }}/keys/{{ item }}"
+#   with_items: "{{ streisand_bootstrap_gpg_keys }}"
 
 # - name: "Refresh the Streisand GPG keyring with keyserver information"
 #   command: "gpg2 {{ streisand_default_gpg_flags }} {{ streisand_default_key_import_flags }} --refresh"
@@ -91,12 +90,12 @@
 #   # keyrings and updating the static repo keys until the build passes again.
 #   when: not streisand_ci
 
-- name: "Set up a daily cronjob to refresh the Streisand GPG keyring"
-  template:
-    src: "streisand-gpg-refresh.j2"
-    dest: "/etc/cron.daily/streisand-gpg-refresh"
-    owner: root
-    group: root
-    mode: 0755
-  # There's no point installing a cronjob in CI
-  when: not streisand_ci
+# - name: "Set up a daily cronjob to refresh the Streisand GPG keyring"
+#   template:
+#     src: "streisand-gpg-refresh.j2"
+#     dest: "/etc/cron.daily/streisand-gpg-refresh"
+#     owner: root
+#     group: root
+#     mode: 0755
+#   # There's no point installing a cronjob in CI
+#   when: not streisand_ci
