@@ -10,20 +10,20 @@
     mode: 0755
     state: directory
 
-- block:
-    - name: Mirror the OpenConnect clients
-      get_url:
-        url: "{{ item.url }}"
-        dest: "{{ openconnect_mirror_location }}"
-        checksum: "{{ item.checksum }}"
-        owner: www-data
-        group: www-data
-        mode: 0644
-      with_items: "{{ openconnect_download_urls }}"
-  rescue:
-    - name: "{{ streisand_mirror_warning }}"
-      pause:
-        seconds: "{{ streisand_mirror_warning_seconds }}"
+# - block:
+#     - name: Mirror the OpenConnect clients
+#       get_url:
+#         url: "{{ item.url }}"
+#         dest: "{{ openconnect_mirror_location }}"
+#         checksum: "{{ item.checksum }}"
+#         owner: www-data
+#         group: www-data
+#         mode: 0644
+#       with_items: "{{ openconnect_download_urls }}"
+#   rescue:
+#     - name: "{{ streisand_mirror_warning }}"
+#       pause:
+#         seconds: "{{ streisand_mirror_warning_seconds }}"
 
 - include_role:
     name: i18n-docs

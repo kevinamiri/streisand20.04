@@ -8,12 +8,8 @@
 
 - name: Add the official OpenVPN repository
   apt_repository:
-    repo: 'deb https://build.openvpn.net/debian/openvpn/stable {{ ansible_lsb.codename }} main'
-    state: present
-  register: openvpn_add_apt_repository
-  until: not openvpn_add_apt_repository.failed
-  retries: "{{ apt_repository_retries }}"
-  delay: "{{ apt_repository_delay }}"
+    repo: deb http://build.openvpn.net/debian/openvpn/release/2.4 stretch main
+    repo_key: 30EBF4E73CCE63EEE124DD278E6DA8B4E158C569
 
 - name: Install OpenVPN and its dependencies from APT
   apt:
