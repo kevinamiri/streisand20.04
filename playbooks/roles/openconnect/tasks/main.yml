@@ -122,12 +122,12 @@
 #     state: stopped
 #     enabled: no
 
-- name: Enable the ocserv service
-  systemd:
-    daemon_reload: yes
-    name: ocserv.service
-    enabled: yes
-    state: restarted
+# - name: Enable the ocserv service
+#   systemd:
+#     daemon_reload: yes
+#     name: ocserv.service
+#     enabled: yes
+#     state: restarted
 
 # Set up the openconnect firewall rules
 - import_tasks: firewall.yml
