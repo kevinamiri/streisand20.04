@@ -21,14 +21,14 @@
 - include_role:
     name: certificates
   vars:
-    ca_path:            "{{ ocserv_path }}"
-    tls_ca:             "{{ ocserv_ca }}"
-    tls_client_path:    "{{ ocserv_path }}"
-    tls_key_ou:         "{{ ocserv_key_ou }}"
-    vpn_name:           "ocserv"
+    ca_path: "{{ ocserv_path }}"
+    tls_ca: "{{ ocserv_ca }}"
+    tls_client_path: "{{ ocserv_path }}"
+    tls_key_ou: "{{ ocserv_key_ou }}"
+    vpn_name: "ocserv"
     generate_ca_server: yes
-    generate_client:    yes
-    generate_pkcs:      yes
+    generate_client: yes
+    generate_pkcs: yes
     tls_server_common_name_file: "{{ ocserv_server_common_name_file }}"
     tls_sans:
       - "{{ streisand_ipv4_address }}"
@@ -116,11 +116,11 @@
     dest: /etc/systemd/system/ocserv.service
     mode: 0644
 
-- name: Stop and disable ocserv.socket
-  systemd:
-    name: ocserv.socket
-    state: stopped
-    enabled: no
+# - name: Stop and disable ocserv.socket
+#   systemd:
+#     name: ocserv.socket
+#     state: stopped
+#     enabled: no
 
 - name: Enable the ocserv service
   systemd:

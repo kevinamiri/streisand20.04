@@ -24,7 +24,16 @@
     owner: root
     group: root
     mode: 0644
-# - name: "Restart DNSMasq to pick up the new configuration"
-#   service:
-#     name: dnsmasq
-#     state: reloaded
+
+- name: "sudo systemctl disable systemd-resolved"
+  command: "sudo systemctl disable systemd-resolved"
+  become: yes
+
+- name: "sudo systemctl stop systemd-resolved"
+  command: "sudo systemctl stop systemd-resolved"
+  become: yes
+
+- name: "Restart DNSMasq to pick up the new configuration"
+  service:
+    name: dnsmasq
+    state: restarted
