@@ -11,14 +11,14 @@
   set_fact:
     external_ipv4_address: "presumed_failed"
 
-- name: "Check external IP Address through Google"
-  command: dig -4 +short myip.opendns.com @resolver1.opendns.com A
-  register: dig_output
+# - name: "Check external IP Address through Google"
+#   command: dig -4 +short myip.opendns.com @resolver1.opendns.com A
+#   register: dig_output
 
-- name: "Set the variable to the value"
-  set_fact:
-    external_ipv4_address: "{{ dig_output.stdout | regex_replace('\"', '') }}"
-    when: (dig_output.rc == 0)
+# - name: "Set the variable to the value"
+#   set_fact:
+#     external_ipv4_address: "{{ dig_output.stdout | regex_replace('\"', '') }}"
+#     when: (dig_output.rc == 0)
 
 # Enter this block only when when the IPs are different and query user for updating
 # to public ip
@@ -48,4 +48,3 @@
         streisand_ipv4_address: "{{ external_ipv4_address }}"
       when: ((publish_external.user_input == "yes") or (publish_external.user_input == "Yes") or (publish_external.user_input == "YES") or (publish_external.user_input == "Y") or (publish_external.user_input == "y"))
   when: (external_ipv4_address != "presumed_failed") and (streisand_ipv4_address != external_ipv4_address)
-...
