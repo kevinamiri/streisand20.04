@@ -96,8 +96,17 @@
         line: "streisand_ssh_forward_enabled: {{ streisand_ssh_forward_enabled|bool }}"
     - lineinfile:
         path: "{{ streisand_site_vars }}"
+<<<<<<< HEAD
+        regexp: "^streisand_shadowsocks_v2ray_enabled: (?:yes|no)$"
+        line: "streisand_shadowsocks_v2ray_enabled: {{ streisand_shadowsocks_v2ray_enabled }}"
+    - lineinfile:
+        path: "{{ streisand_site_vars }}"
+        regexp: "^streisand_ssh_forward_enabled: (?:yes|no)$"
+        line: "streisand_ssh_forward_enabled: {{ streisand_ssh_forward_enabled }}"
+=======
         regexp: "^streisand_sshuttle_enabled: (?:yes|no|True|False)$"
         line: "streisand_sshuttle_enabled: {{ streisand_sshuttle_enabled|bool }}"
+>>>>>>> upstream/master
     - lineinfile:
         path: "{{ streisand_site_vars }}"
         regexp: "^streisand_stunnel_enabled: (?:yes|no|True|False)$"
@@ -116,5 +125,14 @@
         line: "streisand_wireguard_enabled: {{ streisand_wireguard_enabled|bool }}"
     - lineinfile:
         path: "{{ streisand_site_vars }}"
+<<<<<<< HEAD
+        regexp: "^streisand_wireguard_enabled: (?:yes|no)$"
+        line: "streisand_wireguard_enabled: {{ streisand_wireguard_enabled }}"
+    - lineinfile:
+        path: "{{ streisand_site_vars }}"
+        regexp: "^streisand_cloudflared_enabled: (?:yes|no)$"
+        line: "streisand_cloudflared_enabled: {{ streisand_cloudflared_enabled }}"
+=======
         regexp: "^streisand_cloudflared_enabled: (?:yes|no|True|False)$"
         line: "streisand_cloudflared_enabled: {{ streisand_cloudflared_enabled|bool }}"
+>>>>>>> upstream/master
