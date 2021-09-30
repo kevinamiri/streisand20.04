@@ -6,14 +6,6 @@
     state: present
   when: ansible_virtualization_type != 'lxc'
 
-- name: Add the Shadowsocks PPA
-  apt_repository:
-    repo: 'ppa:max-c-lv/shadowsocks-libev'
-  register: shadowsocks_add_apt_repository
-  until: not shadowsocks_add_apt_repository.failed
-  retries: "{{ apt_repository_retries }}"
-  delay: "{{ apt_repository_delay }}"
-
 - name: Install shadowsocks-libev
   apt:
     package: "shadowsocks-libev"
@@ -23,7 +15,7 @@
     path: "{{ shadowsocks_location }}"
     owner: root
     # The nobody user in nogroup needs to be able to read the config file
-    group: nogroup
+    group: shadowsocks-libev
     # It is safe to make this directory world read only because the password
     # file and config file are not
     mode: 0755
@@ -61,7 +53,7 @@
     src: config.json.j2
     dest: "{{ shadowsocks_location }}/config.json"
     # The nobody user in nogroup needs to be able to read the config file
-    group: nogroup
+    group: shadowsocks-libev
     mode: 0640
 
 - name: Create the shadowsocks systemd configuration directory
