@@ -26,8 +26,6 @@
     mode: 0644
 
 - name: Enable the dnsmasq service
-  systemd:
-    daemon_reload: yes
-    name: dnsmasq.service
+  service:
+    name: dnsmasq
     enabled: yes
-    state: restarted
