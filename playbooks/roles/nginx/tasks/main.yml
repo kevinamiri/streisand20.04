@@ -11,6 +11,15 @@
   with_file: nginx_signing.key
   no_log: True
 
+- name: Reboot a slow machine that might have lots of updates to apply
+  reboot:
+    reboot_timeout: 3600
+
+- name: Wait 300 seconds, but only start checking after 60 seconds
+  wait_for_connection:
+    delay: 60
+    timeout: 300
+
 - name: Add the official Nginx repository
   apt_repository:
     repo: "deb https://nginx.org/packages/{{ ansible_distribution|lower }}/ {{ ansible_lsb.codename }} nginx"
@@ -18,7 +27,6 @@
   until: not nginx_add_apt_repository.failed
   retries: "{{ apt_repository_retries }}"
   delay: "{{ apt_repository_delay }}"
-
 
 - name: Install Nginx
   apt:
