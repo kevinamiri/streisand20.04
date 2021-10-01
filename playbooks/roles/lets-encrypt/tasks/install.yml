@@ -1,20 +1,24 @@
-- name: Enable the Universe repository
-  apt_repository:
-    repo: "deb http://archive.ubuntu.com/ubuntu {{ ansible_distribution_release }} universe"
-    state: present
-  register: le_add_apt_repository
-  until: not le_add_apt_repository.failed
-  retries: "{{ apt_repository_retries }}"
-  delay: "{{ apt_repository_delay }}"
-
-- name: Add the certbot PPA
-  apt_repository:
-    repo: "ppa:certbot/certbot"
-  register: le_add_certbot_ppa
-  until: not le_add_certbot_ppa.failed
-  retries: "{{ apt_repository_retries }}"
-  delay: "{{ apt_repository_delay }}"
-
-- name: Install certbot
+- name: Remove "certbot" package
   apt:
-    package: certbot
+    name: certbot
+    state: absent
+
+- name: Install snapd
+  apt:
+    name: snapd
+    state: present
+
+- name: Update snapd
+  command: snap install core
+
+- name: Refresh snapd
+  command: snap refresh core
+
+- name: Install certbot snap
+  command: snap install --classic certbot
+
+- name: Create a symbolic link to certbot
+  file:
+    src: /snap/bin/certbot
+    dest: /usr/bin/certbot
+    state: link
