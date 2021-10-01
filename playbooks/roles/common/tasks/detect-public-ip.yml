@@ -3,6 +3,19 @@
 # IP address is different from what is visible on the host and, if
 # successfully detected, ask to update the address for documentation and
 # configuration profiles
+
+- name: Make folder in /var/www
+  file:
+    path: /var/www/tmp
+    state: directory
+    mode: 0755
+
+- name: Give premission to folder
+  file:
+    path: /var/www/tmp
+    state: directory
+    mode: 0755
+
 - name: "Install dns module"
   apt:
     package: dnsutils
