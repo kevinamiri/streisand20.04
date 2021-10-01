@@ -35,6 +35,8 @@ streisand_common_packages:
   - uuid
   # Install git for source code retrieval and use with "go get" command
   - git
+  # for installing certbot
+  - python3-pyasn1
 
 # Services that are running by default but not needed by Streisand
 streisand_unneeded_packages:
