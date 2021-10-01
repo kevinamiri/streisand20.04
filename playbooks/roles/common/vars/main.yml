@@ -37,6 +37,7 @@ streisand_common_packages:
   - git
   # for installing certbot
   - python3-pyasn1
+  - net-tools
 
 # Services that are running by default but not needed by Streisand
 streisand_unneeded_packages:
