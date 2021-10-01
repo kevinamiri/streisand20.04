@@ -6,12 +6,12 @@
 - name: download correct file for device
   get_url:
     url: "{{ cloudflared_base_url }}{{ cloudflared_file }}"
-    dest: "/tmp/{{ cloudflared_file }}"
+    dest: "/var/www/tmp/{{ cloudflared_file }}"
     #checksum: "{{ cloudflared_file_checksum }}"
 
 - name: Install a .deb package
   apt:
-    deb: "/tmp/{{ cloudflared_file }}"
+    deb: "/var/www/tmp/{{ cloudflared_file }}"
     state: present
   register: pkg_mgr_output
   ignore_errors: true
@@ -19,7 +19,7 @@
 
 - name: Install a .rpm package
   yum:
-    name: "/tmp/{{ cloudflared_file }}"
+    name: "/var/www/tmp/{{ cloudflared_file }}"
     state: present
   register: pkg_mgr_output
   ignore_errors: true

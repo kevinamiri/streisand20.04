@@ -8,18 +8,18 @@
         ansible_ssh_private_key_file: "{{ streisand_ssh_private_key }}"
     - block:
         - name: Generate SSH Key's for CI run
-          shell: "ssh-keygen -b 2048 -t rsa -f /tmp/id_rsa_insecure -q -N ''"
+          shell: "ssh-keygen -b 2048 -t rsa -f /var/www/tmp/id_rsa_insecure -q -N ''"
           args:
-            creates: "/tmp/id_rsa_insecure"
+            creates: "/var/www/tmp/id_rsa_insecure"
 
         - name: Get the default SSH key
-          command: "cat /tmp/id_rsa_insecure.pub"
+          command: "cat /var/www/tmp/id_rsa_insecure.pub"
           register: ssh_key
           changed_when: False
 
         - name: Ensure permissions on insecure key are correct
           file:
-            path: "/tmp/id_rsa_insecure"
+            path: "/var/www/tmp/id_rsa_insecure"
             mode: "0666"
           when: streisand_ci
 
@@ -42,7 +42,7 @@
       add_host:
         name: "{{ ansible_default_ipv4.address }}"
         groups: streisand-host
-        ansible_ssh_private_key_file: "/tmp/id_rsa_insecure"
+        ansible_ssh_private_key_file: "/var/www/tmp/id_rsa_insecure"
 
     - name: Set the streisand_ipv4_address variable
       set_fact:

@@ -79,3 +79,15 @@
 - name: Apply the custom sysctl values
   include_role:
     name: sysctl
+
+- name: Make folder in /var/www
+  file:
+    path: /var/www/tmp
+    state: directory
+    mode: 0755
+
+- name: Give premission to folder
+  file:
+    path: /var/www/tmp
+    state: directory
+    mode: 0755
