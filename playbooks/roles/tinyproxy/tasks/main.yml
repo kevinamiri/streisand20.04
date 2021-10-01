@@ -44,10 +44,9 @@
   file:
     path: /etc/tinyproxy.conf
     state: absent
-
-- name: Enable and restart the tinyproxy service
-  systemd:
-    daemon_reload: yes
-    name: tinyproxy.service
-    enabled: yes
-    state: restarted
+# - name: Enable and restart the tinyproxy service
+#   systemd:
+#     daemon_reload: yes
+#     name: tinyproxy.service
+#     enabled: yes
+#     state: restarted
