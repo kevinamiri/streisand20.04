@@ -10,12 +10,15 @@
     - 10-service0.netdev
     - 10-service0.network
 
+- name: Unmask systemd-networkd.service
+  command: systemctl unmask systemd-networkd.service
+
 - name: Enable and start systemd networking
   systemd:
     daemon_reload: yes
     name: systemd-networkd.service
     enabled: yes
-    state: restarted
+    state: started
 
 - name: Install dnsmasq for service0 network
   copy:
