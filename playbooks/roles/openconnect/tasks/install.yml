@@ -3,6 +3,14 @@
 # call in a "retry" loop; enabling Universe doesn't reach out to the
 # network, so this shouldn't have transient failures. For the sake of
 # consistency with the other apt_repository calls, it does retry.
+- name: Reboot a slow machine that might have lots of updates to apply
+  reboot:
+    reboot_timeout: 3600
+
+- name: Wait 300 seconds, but only start checking after 60 seconds
+  wait_for_connection:
+    delay: 60
+    timeout: 300
 
 - name: Enable the Universe repository
   apt_repository:

@@ -10,7 +10,7 @@
       when: not streisand_ci
 
 - name: Configure the Server and install required software
-# ========================================================
+  # ========================================================
   hosts: streisand-host
 
   remote_user: "root"
@@ -49,4 +49,3 @@
       when: streisand_ad_blocking_enabled
     - streisand-mirror
     - streisand-gateway
-...
